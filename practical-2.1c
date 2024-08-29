@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <omp.h>
+
+int main()
+{
+    int arr[10000];
+    int a=9,t=10000;
+    for(int i=0;i<t;i++)
+    {
+        arr[i]=i;
+    }
+    for(int i=0;i<t;i++)
+    {
+        printf("%d ",i);
+        // printf("\n");
+    }
+    omp_set_num_threads(5);
+    double s= omp_get_wtime(),e;
+    #pragma omp parallel for
+    
+for(int i=0;i<10000;i++)
+{
+    // printf("thread no. %d",omp_get_thread_num());
+    arr[i]+=a;
+}
+    
+    e= omp_get_wtime();
+
+for(int i=0;i<10000;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    printf("time taken %f",e-s);
+}
